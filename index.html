@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+    <script src="./node_modules/web3/dist/web3.min.js"></script>
+
+    <title>Test</title>
+</head>
+<body>
+    <!-- Mark up here -->
+    <button id="button">Approve request</button>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.0.slim.min.js" integrity="sha256-AMg3I7ya76OLPD9M+Mk7kqrA29HUn/FuGBfT/9Uf9ls=" crossorigin="anonymous"></script>
+    <script>
+        if(typeof web3 !== "undefined") {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[2];
+
+        var InterCompanyTransferContract = web3.eth.contract([
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "approveRequest",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [],
+                "name": "rejectRequest",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "name": "originatorAddr",
+                        "type": "address"
+                    },
+                    {
+                        "name": "transferVal",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "name": "msg",
+                        "type": "string"
+                    }
+                ],
+                "name": "Status",
+                "type": "event"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "beneficiary",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "getBalance",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "originator",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "transfer",
+                "outputs": [
+                    {
+                        "name": "originator",
+                        "type": "address"
+                    },
+                    {
+                        "name": "beneficiary",
+                        "type": "address"
+                    },
+                    {
+                        "name": "transferValue",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ]);
+
+        var Transfer = InterCompanyTransferContract.at("0x914ee52a7a7fbd848e6ff9a30af31cde3c0a05dc");
+        console.log(Transfer);
+        
+        // $("#button").click(function() {
+        //     $.dialog({
+        //         content: "test",
+        //         buttons: [
+        //             {
+        //                 text: "Ok",
+        //                 icon: "ui-icon-heart",
+        //                 click: function() {
+        //                     $( this ).dialog( "close" );
+        //                 }
+        //             }
+        //         ]
+        //     });
+        // });
+    </script>
+</body>
+</html>
